@@ -18,4 +18,5 @@
         android:text="글쓰기"
         android:padding="20dp" />
 
+
 </LinearLayout>
