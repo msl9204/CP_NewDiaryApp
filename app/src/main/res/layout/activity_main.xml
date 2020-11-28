@@ -1,41 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="20dp">
 
-    <EditText
-        android:id="@+id/et_1"
+    <ListView
+        android:id="@+id/mainListView"
         android:layout_width="match_parent"
-        android:layout_height="400dp" />
+        android:layout_height="600dp" />
 
-    <LinearLayout
+    <Button
+        android:id="@+id/mainButton"
+        android:layout_gravity="right|bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="저장" />
-
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-
-            android:text="취소" />
-
-    </LinearLayout>
-
-
-
+        android:text="글쓰기"
+        android:padding="20dp" />
 
 </LinearLayout>
