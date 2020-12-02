@@ -33,7 +33,6 @@ public class Editor extends AppCompatActivity {
     private EditText title;
     private EditText content;
     private Button btn_capture;
-    private Button btnCapture;
     private ImageView img_view;
     private static final int Image_Capture_Code = 1;
 
