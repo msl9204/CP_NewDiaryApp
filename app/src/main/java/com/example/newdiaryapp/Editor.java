@@ -30,8 +30,6 @@ public class Editor extends AppCompatActivity {
 
     private Button btn_save;
     private Button btn_cancel;
-    private EditText title;
-    private EditText content;
     private Button btn_capture;
     private ImageView img_view;
     private static final int Image_Capture_Code = 1;
@@ -44,28 +42,12 @@ public class Editor extends AppCompatActivity {
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_cancel = (Button)findViewById(R.id.btn_cancel);
 
-        title = (EditText)findViewById(R.id.title);
-        content = (EditText)findViewById(R.id.content);
-
         btn_capture = (Button)findViewById(R.id.btn_capture);
         img_view = (ImageView)findViewById(R.id.img_view);
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String getTitle = title.getText().toString();
-//                String getContent = content.getText().toString();
-//
-//                String filename = "myfile";
-//                String fileContents = "Hello world!";
-//                try (FileOutputStream fos = getApplicationContext().openFileOutput(filename, getApplicationContext().MODE_PRIVATE)) {
-//                    fos.write(Integer.parseInt(fileContents));
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
 
                 Intent intent = new Intent(Editor.this,MainActivity.class);
                 startActivity(intent);
