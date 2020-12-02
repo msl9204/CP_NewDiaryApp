@@ -1,20 +1,28 @@
 package com.example.newdiaryapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,7 +32,10 @@ public class Editor extends AppCompatActivity {
     private Button btn_cancel;
     private EditText title;
     private EditText content;
-
+    private Button btn_capture;
+    private Button btnCapture;
+    private ImageView img_view;
+    private static final int Image_Capture_Code = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,37 +48,25 @@ public class Editor extends AppCompatActivity {
         title = (EditText)findViewById(R.id.title);
         content = (EditText)findViewById(R.id.content);
 
+        btn_capture = (Button)findViewById(R.id.btn_capture);
+        img_view = (ImageView)findViewById(R.id.img_view);
+
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String getTitle = title.getText().toString();
-                String getContent = content.getText().toString();
+//                String getTitle = title.getText().toString();
+//                String getContent = content.getText().toString();
+//
+//                String filename = "myfile";
+//                String fileContents = "Hello world!";
+//                try (FileOutputStream fos = getApplicationContext().openFileOutput(filename, getApplicationContext().MODE_PRIVATE)) {
+//                    fos.write(Integer.parseInt(fileContents));
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
-                File saveFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/text"); // 저장 경로
-
-                if(!saveFile.exists()){ // 폴더 없을 경우
-                    saveFile.mkdir(); // 폴더 생성
-                }
-                try {
-
-                    long now = System.currentTimeMillis(); // 현재시간 받아오기
-                    Date date = new Date(now); // Date 객체 생성
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String nowTime = sdf.format(date);
-
-                    BufferedWriter buf = new BufferedWriter(new FileWriter(saveFile+"/CarnumData.txt", true));
-                    buf.append(nowTime + " "); // 날짜 쓰기
-                    buf.append(getTitle); // 파일 쓰기
-                    buf.newLine(); // 개행
-                    buf.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-                Log.i("Editor", getTitle);
 
                 Intent intent = new Intent(Editor.this,MainActivity.class);
                 startActivity(intent);
@@ -81,6 +80,27 @@ public class Editor extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btn_capture.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cInt,Image_Capture_Code);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Image_Capture_Code) {
+            if (resultCode == RESULT_OK) {
+                Bitmap bp = (Bitmap) data.getExtras().get("data");
+                img_view.setImageBitmap(bp);
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 }
